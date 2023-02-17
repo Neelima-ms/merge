@@ -1,13 +1,11 @@
 name: Automerge
 
 on:
-
-   push:
+ push:
      branches:
        - release/a.b.c
 
 env:
-  
   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
   MY_BRANCH: master
   MASTER_REPO: https://github.com/mydevopsgithub/merge
@@ -18,17 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-      
-#     - name: Merge release branch to default branch
-#       run: |
-#         git config user.name "mydevopsgithub"
-#         git config user.email "neelimamaddela95@gmail.com"
-#         git checkout master
-#         git merge --no-ff ${{ github.event.ref }}
-#         git push
-
     - name: Merge release branch to default branch
       run: |
         git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
