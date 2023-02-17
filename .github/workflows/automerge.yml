@@ -8,7 +8,7 @@ env:
   # replace "github_username" with your GitHub username
   # replace "github.com/username/repo.git" with your GitHub repo path
   # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
-  MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@https://github.com/mydevopsgithub/merge
+  MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
 
   # replace "long-lived_branch_name" with your branch name
   MY_BRANCH: release/a.b.c
