@@ -16,3 +16,6 @@ jobs:
         
       - name: Every time
         run: echo "This step will always run"
+        
+      - name: Run a one-line script
+        run: echo Hello from  Organization
