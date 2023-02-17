@@ -18,7 +18,7 @@ env:
   MASTER_REPO: https://github.com/mydevopsgithub/merge
 
   # replace "master" with your master branch name
-  MASTER_BRANCH: main
+  MASTER_BRANCH: master
 
 jobs:
   merge:
