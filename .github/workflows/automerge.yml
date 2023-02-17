@@ -1,8 +1,9 @@
 name: Automerge
 
 on:
-   push:
-
+  push:
+     branches:
+       - master
 
 env:
   # replace "github_username" with your GitHub username
