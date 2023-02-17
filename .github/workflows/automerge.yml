@@ -2,7 +2,7 @@ name: Automerge
 
 on:
    push:
-#     branches: [CWP-4033-DEV-TASK---To-check-&-act-on-Checkmarx-workflow]
+
 
 env:
   # replace "github_username" with your GitHub username
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Merge with master
+    - name: Merge with default branch
       run: |
         git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
         cd tmp
