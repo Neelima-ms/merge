@@ -1,9 +1,13 @@
 name: Automerge
 
 on:
+
    push:
      branches:
        - release/a.b.c
+
+
+
 env:
   # replace "github_username" with your GitHub username
   # replace "github.com/username/repo.git" with your GitHub repo path
