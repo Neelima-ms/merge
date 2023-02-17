@@ -3,7 +3,7 @@ name: Automerge
 on:
  push:
      branches:
-       - release/a.b.c
+       - release/*
 
 env:
   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
