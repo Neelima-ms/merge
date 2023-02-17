@@ -3,22 +3,14 @@ name: Automerge
 on:
   push:
      branches:
-       - master
+       - release/a.b.c
 
 env:
-  # replace "github_username" with your GitHub username
-  # replace "github.com/username/repo.git" with your GitHub repo path
-  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
+  
   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
-
-  # replace "long-lived_branch_name" with your branch name
-  MY_BRANCH: release/a.b.c
-
-  # replace it with the path to master repo
+  MY_BRANCH: master
   MASTER_REPO: https://github.com/mydevopsgithub/merge
-
-  # replace "master" with your master branch name
-  MASTER_BRANCH: master
+  MASTER_BRANCH: release/a.b.c
 
 jobs:
   merge:
