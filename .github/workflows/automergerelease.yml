@@ -28,7 +28,7 @@ jobs:
        
      - name: Merge release branch to default branch
        run: |
-         git merge --n0-ff $ {{ matrix.branch }}
+         git merge --n0-ff ${{ matrix.branch }}
          git push
          
 #     - name: Merge release branch to default branch
