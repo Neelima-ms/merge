@@ -44,11 +44,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          lfs: true
-          submodules: "recursive"
-          token: ${{ secrets.GIT_ACCESSTOKEN_CICD }}
+#         with:
+#           fetch-depth: 0
+#           lfs: true
+#           submodules: "recursive"
+#           token: ${{ secrets.GIT_ACCESSTOKEN_CICD }}
 
       - name: Generate build number
         uses: onyxmueller/build-tag-number@v1
