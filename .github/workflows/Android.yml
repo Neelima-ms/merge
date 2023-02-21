@@ -36,18 +36,19 @@ on:
 jobs:
   buildForAndroidPlatform:
     name: Build Android App
-    runs-on: [self-hosted, Unity]
+#     runs-on: [self-hosted, Unity]
+    runs-on: ubuntu-latest
     env:
       BUILD_NUMBER_FILE_PATH: ${{ format('{0}/Client/Assets/Resources/buildNumber.txt', github.workspace) }}
 #       ANDROID_UPLOAD_KEYSTORE_NAME: "aab.keystore"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          lfs: true
-          submodules: "recursive"
-          token: ${{ secrets.GIT_ACCESSTOKEN_CICD }}
+#         with:
+#           fetch-depth: 0
+#           lfs: true
+#           submodules: "recursive"
+#           token: ${{ secrets.GIT_ACCESSTOKEN_CICD }}
 
       - name: Generate build number
         uses: onyxmueller/build-tag-number@v1
