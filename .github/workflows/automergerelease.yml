@@ -35,10 +35,11 @@ jobs:
 #        echo "3"
 #        git push
    - name: Merge release branch to default branch
-     git checkout master
-     git merge --no-commit --no-ff release/*
-     echo '::set-output name=mergeResult::$?'
-     git merge --abort
+     run: |
+       git checkout master
+       git merge --no-commit --no-ff release/*
+       echo '::set-output name=mergeResult::$?'
+       git merge --abort
 
        
    
