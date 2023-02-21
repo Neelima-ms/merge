@@ -28,8 +28,11 @@ jobs:
        cd tmp
        git config user.name "mydevopsgithub"
        git config user.email "neelimamaddela95@gmail.com"
+       echo "1" 
        git config pull.rebase false
+       echo "2"
        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+       echo "3"
        git push
        
    - name: Send email using sendGrid
