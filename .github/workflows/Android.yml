@@ -3,35 +3,35 @@ name: Android
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        required: true
-        type: choice
-        description: Select build enviroment
-        default: Dev
-        options:
-          - Hyperspace
-          - Beta
-          - Dev
-          - Prod
-          - Staging
-          - Regression
-      unityVersion:
-         description: 'Select the Unity version'
-         required: true 
-         type: choice
-         default: 2021.3.13f1
-         options:
-          - 2020.3.11f1
-          - 2021.3.13f1
-          - 2022.1.21f1
+#       environment:
+#         required: true
+#         type: choice
+#         description: Select build enviroment
+#         default: Dev
+#         options:
+#           - Hyperspace
+#           - Beta
+#           - Dev
+#           - Prod
+#           - Staging
+#           - Regression
+#       unityVersion:
+#          description: 'Select the Unity version'
+#          required: true 
+#          type: choice
+#          default: 2021.3.13f1
+#          options:
+#           - 2020.3.11f1
+#           - 2021.3.13f1
+#           - 2022.1.21f1
       AltUnity:
          description: 'Use AltUnity library'
          required: true 
          type: boolean
-      TestingBuild:
-         description: 'Testing build'
-         required: true 
-         type: boolean
+#       TestingBuild:
+#          description: 'Testing build'
+#          required: true 
+#          type: boolean
 
 jobs:
   buildForAndroidPlatform:
