@@ -5,40 +5,40 @@ on:
      branches:
        - release/*
 
-# env:
-#   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
-#   MY_BRANCH: master
-#   MASTER_REPO: https://github.com/mydevopsgithub/merge
-#   MASTER_BRANCH: release/*
+env:
+  MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
+  MY_BRANCH: master
+  MASTER_REPO: https://github.com/mydevopsgithub/merge
+  MASTER_BRANCH: github.ref 
 
 jobs:
-  auto-merge:
-   strategy:
-     matrix:
-       branches:
-         - release/v1.0
-         - release/v2.0
-         - release/v3.0
-         - release/a.b.c
-         - release/x.y.z
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout code
-       uses: actions/checkout@v2
+#   auto-merge:
+#    strategy:
+#      matrix:
+#        branches:
+#          - release/v1.0
+#          - release/v2.0
+#          - release/v3.0
+#          - release/a.b.c
+#          - release/x.y.z
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
        
-     - name: Merge release branch to default branch
-       run: |
-         git merge --no-ff ${{ matrix.branch }}
-         git push
-#     - name: Merge release branch to default branch
-#       run: |
-#         git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-#         cd tmp
-#         git config user.name "mydevopsgithub"
-#         git config user.email "neelimamaddela95@gmail.com"
-#         git config pull.rebase false
-#         git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-#         git push
+#      - name: Merge release branch to default branch
+#        run: |
+#          git merge --no-ff ${{ matrix.branch }}
+#          git push
+    - name: Merge release branch to default branch
+      run: |
+        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+        cd tmp
+        git config user.name "mydevopsgithub"
+        git config user.email "neelimamaddela95@gmail.com"
+        git config pull.rebase false
+        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+        git push
         
 #     - name: Send email using sendGrid
 #       uses: peter-evans/sendgrid-action@v1
