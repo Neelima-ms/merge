@@ -26,14 +26,14 @@ jobs:
        
    - name: Merge release branch to default branch
      run: |
-       for branch in $(GIT for-each-ref --format='%(refname:short)' 'ref/heads/release/*');do
+       for branch in $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*');do
         git merge --no-ff --no-commit $branch
         done
    - name: Send Email on merge Conflict
      env:
        EMAIL_RECIPIENT: 'neelimamaddela95@gmail.com'
      run: |
-        if git merge --no-commit --no-ff ${{ MASTER_BRANCH }} | grep -q 'CONFLICT'; then
+        if git merge --no-commit --no-ff $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*') | grep -q 'CONFLICT'; then
           echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" ${{ EMAIL_RECIPIENT }}
           git merge --abort
         else
