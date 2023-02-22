@@ -32,6 +32,15 @@ jobs:
      run: |
         if git merge --no-commit --no-ff ${{ MASTER_BRANCH }} | grep -q 'CONFLICT'; then
           echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" ${{ EMAIL_RECIPIENT }}
+          git merge --abort
+        else
+          git merge --continue
+        fi
+        
+   - name: Push changes 
+     uses: ad-m/github-push-action@master
+     with:
+       github_token: ${{ secrets.GITHUB_TOKEN }}
 
   
 
