@@ -36,7 +36,7 @@ jobs:
 #        git push
    - name: Merge release branch to default branch
      run: |
-       git checkout master
+       git checkout -b branch remote/branch
        git merge --no-commit --no-ff release/*
        echo '::set-output name=mergeResult::$?'
        git merge --abort
