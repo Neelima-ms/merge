@@ -18,16 +18,20 @@ jobs:
    steps:
    - name: Checkout code
      uses: actions/checkout@v2
-#    - name: get the branch
-#      run: |
-#          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+     with:
+       ref: 'master'
+   - name: get the branch
+     run: |
+         echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
        
    - name: Merge release branch to default branch
-     run: git merge origin/release/* || echo "Merge conflict"
+     run: git merge --no-ff --no-commit ${{ MASTER_BRANCH }}
    - name: Send Email on merge Conflict
-     if: failure()
+     env:
+       EMAIL_RECIPIENT: 'neelimamaddela95@gmail.com'
      run: |
-       echo "There was a merge conflict in the ${GITHUB_REPOSITORY} repo.Please review the changes and reslove any conflicts" | mail -s "Merge Conflicts Detected" neelimamaddela95@gmail.com
+        if git merge --no-commit --no-ff ${{ MASTER_BRANCH }} | grep -q 'CONFLICT'; then
+          echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" ${{ EMAIL_RECIPIENT }}
 
   
 
