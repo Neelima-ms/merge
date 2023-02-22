@@ -18,16 +18,16 @@ jobs:
    steps:
    - name: Checkout code
      uses: actions/checkout@v2
-#    - name: grt the branch
+#    - name: get the branch
 #      run: |
 #          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
        
    - name: Merge release branch to default branch
-     run: git merge origin/release/*
+     run: git merge origin/release/* || echo "Merge conflict"
    - name: Send Email on merge Conflict
      if: failure()
      run: |
-       echo "There was a merge conflict in the ${GITHUB_REPOSITORY} repo.Please reeview the chnages and reslove any conflicts" | mail -s "Merge Conflicts Detected" neelimamaddela95@gmail.com
+       echo "There was a merge conflict in the ${GITHUB_REPOSITORY} repo.Please review the changes and reslove any conflicts" | mail -s "Merge Conflicts Detected" neelimamaddela95@gmail.com
 
   
 
