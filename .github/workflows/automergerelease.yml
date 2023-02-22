@@ -33,7 +33,7 @@ jobs:
      env:
        EMAIL_RECIPIENT: 'neelimamaddela95@gmail.com'
      run: |
-        if git merge --no-commit --no-ff ${{ MASTER_BRANCH }} | grep -q 'CONFLICT'; then
+        if git merge --no-commit --no-ff $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*') | grep -q 'CONFLICT'; then
           echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" ${{ EMAIL_RECIPIENT }}
           git merge --abort
         else
