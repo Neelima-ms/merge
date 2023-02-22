@@ -36,13 +36,13 @@ jobs:
         if git merge --no-commit --no-ff $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*') | grep -q 'CONFLICT'; then
           echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" $EMAIL_RECIPIENT
           if [[ -n $(git ls-files -u) ]]; then
-          git merge --abort
+            git merge --abort
           fi
         else
           if [[ -n $(git ls-files -u) ]]; then
-          git merge --continue
+            git merge --continue
+          fi
         fi
-        
    - name: Push changes 
      uses: ad-m/github-push-action@master
      with:
