@@ -20,12 +20,15 @@ jobs:
      uses: actions/checkout@v2
      with:
        ref: 'master'
-   - name: get the branch
-     run: |
-         echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+#    - name: get the branch
+#      run: |
+#          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
        
    - name: Merge release branch to default branch
-     run: git merge --no-ff --no-commit ${{ MASTER_BRANCH }}
+     run: |
+       for branch in $(GIT for-each-ref --format='%(refname:short)' 'ref/heads/release/*');do
+        git merge --no-ff --no-commit $branch
+        done
    - name: Send Email on merge Conflict
      env:
        EMAIL_RECIPIENT: 'neelimamaddela95@gmail.com'
