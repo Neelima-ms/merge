@@ -12,7 +12,7 @@ on:
 # #   MASTER_BRANCH: github.ref 
 
 
-jjobs:
+jobs:
   merge:
    runs-on: ubuntu-latest
    steps:
