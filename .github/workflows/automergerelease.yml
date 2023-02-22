@@ -18,8 +18,8 @@ jobs:
    steps:
    - name: Checkout code
      uses: actions/checkout@v2
-     with:
-       ref: 'master'
+#      with:
+#        ref: 'master'
 #    - name: get the branch
 #      run: |
 #          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
