@@ -36,7 +36,6 @@ on:
 jobs:
   buildForAndroidPlatform:
     name: Build Android App
-#     runs-on: [self-hosted, Unity]
     runs-on: ubuntu-latest
     env:
       BUILD_NUMBER_FILE_PATH: ${{ format('{0}/Client/Assets/Resources/buildNumber.txt', github.workspace) }}
