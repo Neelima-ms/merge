@@ -1,0 +1,16 @@
+name: Checkmarx SCA Scan
+
+'on': 
+    schedule:
+      - cron: '25 19 3 3 *' # Run between the 25th and 31th day of every month
+# on:
+#   push:
+#     branches: [CWP-4033-DEV-TASK---To-check-&-act-on-Checkmarx-workflow]
+
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
