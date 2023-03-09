@@ -5,11 +5,11 @@ on:
      branches:
        - release/*
 
-# env:
-#   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
-#   MY_BRANCH: master
-#   MASTER_REPO: https://github.com/mydevopsgithub/merge
-# #   MASTER_BRANCH: github.ref 
+env:
+  MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
+  MY_BRANCH: master
+  MASTER_REPO: https://github.com/mydevopsgithub/merge
+#   MASTER_BRANCH: github.ref 
 
 
 jobs:
@@ -18,35 +18,33 @@ jobs:
    steps:
    - name: Checkout code
      uses: actions/checkout@v2
-     with:
-       ref: 'master'
-#    - name: get the branch
-#      run: |
-#          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+   - name: grt the branch
+     run: |
+         echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
        
    - name: Merge release branch to default branch
      run: |
-       for branch in $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*');do
-        git merge --no-ff --no-commit $branch
-        done
-   - name: Send Email on merge Conflict
-     env:
-       EMAIL_RECIPIENT: 'neelimamaddela95@gmail.com'
-     run: |
-        if git merge --no-commit --no-ff $(git for-each-ref --format='%(refname:short)' 'ref/heads/release/*') | grep -q 'CONFLICT'; then
-          echo "Merge Conflicts Detected" | mail -s "Merge Conflicts Detected" $EMAIL_RECIPIENT
-          if [[ -n $(git ls-files -u) ]]; then
-            git merge --abort
-          fi
-        else
-          if [[ -n $(git ls-files -u) ]]; then
-            git merge --continue
-          fi
-        fi
-        
-   - name: Push changes 
-     uses: ad-m/github-push-action@master
+       git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+       cd tmp
+       git config user.name "mydevopsgithub"
+       git config user.email "neelimamaddela95@gmail.com"
+       echo "1" 
+       git config pull.rebase false
+       echo "2"
+       git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+       echo "3"
+       git push
+       
+   - name: Send mail
+     uses: dawidd6/action-send-mail@v3
      with:
-       github_token: ${{ secrets.GITHUB_TOKEN }}
+#        connection_url: ${{secrets.MAIL_CONNECTION}}
+       server_address: smtp.gmail.com
+       server_port: 465
+#        username: ${{secrets.MAIL_USERNAME}}
+#        password: ${{secrets.MAIL_PASSWORD}}
+       subject: Github Actions job result
+       to: neelimamaddela95@gmail.com,
+       from: Neelima
 
         
