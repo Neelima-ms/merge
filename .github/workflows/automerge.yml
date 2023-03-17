@@ -31,7 +31,7 @@ jobs:
             
       - name: Push changes to default branch
         run: |
-          git push origin master
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: Merge conflict detected 
-          body: "Conflicts detected in the release barnchto deafult branch"
+          body: "Conflicts detected in the release branch to deafult branch"
           to: neelimamaddela95@gmail.com
 
         
