@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "Neelima"
           git config --global user.email "neelimamaddela95@gmail.com"
           git commit -m "initial commit"
-          git push origin master
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
