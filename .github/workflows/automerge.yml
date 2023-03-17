@@ -9,20 +9,20 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        node-version: [14.x]
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
     steps:
       - name: Checkout code 
         uses: actions/checkout@v2
     
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@2
-        with: 
-          node-version: ${{ matrix.node-version }}
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@2
+#         with: 
+#           node-version: ${{ matrix.node-version }}
           
-      - name: Install dependenceies
-        run: npm ci
+#       - name: Install dependenceies
+#         run: npm ci
       - name: Merge changes from release branches
         run: |
           git config --global user.name "Neelima"
