@@ -22,7 +22,7 @@ jobs:
          
       - name: Check for merge conflicts 
         run: |
-          if [ -n "$(git status --procelain)" ]; then
+          if [ -n "$(git status --porcelain)" ]; then
             echo "merge conflict detected"
             echo "$(git status)"
             echo "Conflict detected in the release branch merge to default branch." | mail -s "Merge conflict detected" neelimamaddela95@gmail.com
