@@ -31,7 +31,8 @@ jobs:
             
       - name: Push changes to default branch
         run: |
-          git push origin main
+           git commit -m "initial commit"
+           git push origin master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
