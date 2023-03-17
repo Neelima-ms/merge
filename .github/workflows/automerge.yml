@@ -11,40 +11,25 @@ jobs:
     steps:
       - name: Checkout code 
         uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: action/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install dependenceies
+        run: npm ci
       - name: Merge changes from release branches
-        run: |
-          for branch in $(git branch --remote --list "origin/release/*" --not --merged); do
-          git fetch origin $branch
-          fit merge --no-ff $barnch -m "Auto-merge release barnch"
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         
-      - name: Check for merge conflicts 
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "merge conflict detected"
-            echo "$(git status)"
-            echo "Conflict detected in the release branch merge to default branch." | mail -s "Merge conflict detected" neelimamaddela95@gmail.com
-            exit 1
-            fi
-            
-      - name: Push changes to default branch
         run: |
           git config --global user.name "Neelima"
           git config --global user.email "neelimamaddela95@gmail.com"
-          git commit -m "initial commit"
-          git push origin main
+          git checkout main
+          git merge --no-ff --no-edit rlease
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-  send-email:
-    needs: [auto-merge]
-    runs-on: ubuntu-latest
-    
-    steps:
+         
       - name: Send email notification
-        uses: jakejarvis/send-email-action@master
+        if: failure()
+        uses: dawidd6/action-send-mail@v3.1.1
         with:
           server_address: smtp.gamil.com
           server_port: 587
@@ -52,6 +37,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: Merge conflict detected 
           body: "Conflicts detected in the release branch to deafult branch"
+          from: Neelima
           to: neelimamaddela95@gmail.com
 
         
