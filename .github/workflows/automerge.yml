@@ -3,48 +3,52 @@ name: Automerge
 on:
  push:
      branches:
-       - release/*
-
-env:
-  MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
-  MY_BRANCH: master
-  MASTER_REPO: https://github.com/mydevopsgithub/merge
-#   MASTER_BRANCH: github.ref 
-
+       - 'release/*'
 
 jobs:
-  merge:
-   runs-on: ubuntu-latest
-   steps:
-   - name: Checkout code
-     uses: actions/checkout@v2
-   - name: grt the branch
-     run: |
-         echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
-       
-   - name: Merge release branch to default branch
-     run: |
-       git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-       cd tmp
-       git config user.name "mydevopsgithub"
-       git config user.email "neelimamaddela95@gmail.com"
-       echo "1" 
-       git config pull.rebase false
-       echo "2"
-       git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-       echo "3"
-       git push
-       
-   - name: Send mail
-     uses: dawidd6/action-send-mail@v3
-     with:
-#        connection_url: ${{secrets.MAIL_CONNECTION}}
-       server_address: smtp.gmail.com
-       server_port: 465
-#        username: ${{secrets.MAIL_USERNAME}}
-#        password: ${{secrets.MAIL_PASSWORD}}
-       subject: Github Actions job result
-       to: neelimamaddela95@gmail.com,
-       from: Neelima
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v2
+      - name: Merge changes from release branches
+        run: |
+          for branch in $(git branch --remote --list "origin/release/*" --not merged); do
+          git fetch origin $branch
+          fit merge --no-ff $barnch -m "Auto-merge release barnch"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         
+      - name: Check for merge conflicts 
+        run: |
+          if [ -n "$(git status --procelain)" ]; then
+            echo "merge conflict detected"
+            echo "$(git status)"
+            echo "Conflict detected in the release branch merge to default branch." | mail -s "Merge conflict detected" neelimamaddela95@gmail.com
+            exit 1
+            fi
+            
+      - name: Push changes to default branch
+        run: |
+          git push origin master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  send-email:
+    needs: [auto-merge]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Send email notification
+        uses: jakejarvis/send-email-action@master
+        with:
+          server_address: smtp.gamil.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Merge conflict detected 
+          body: "Conflicts detected in the release barnchto deafult branch"
+          to: neelimamaddela95@gmail.com
 
         
