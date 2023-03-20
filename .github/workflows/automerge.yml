@@ -17,22 +17,22 @@ jobs:
         with:
           script: |
             const { data: pullRequest } = await github.pulls.create({
-              owner: context.repo.own,
+              owner: context.repo.owner,
               repo: context.repo.repo,
               base: 'main'
               head: context.ref,
               title: 'merge ${context.ref} to default branch',
               maintainer_can_modify: true,
-              draft: flase
+              draft: false
             })  
             
             await github.pulls.merge({
-               owner: context.repo.owner,
-               repo: context.repo.repo, 
-               pull_number: pullRequest.number,
-               commit_title: 'Merge ${context.ref} to default branch',
-               merge_method: 'squash'
-             })
+              owner: context.repo.owner,
+              repo: context.repo.repo, 
+              pull_number: pullRequest.number,
+              commit_title: 'Merge ${context.ref} to default branch',
+              merge_method: 'squash'
+            })
           
         
       - name: Check for merge conflicts 
