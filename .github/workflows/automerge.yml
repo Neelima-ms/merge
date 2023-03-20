@@ -34,7 +34,6 @@ jobs:
               merge_method: 'squash'
             })
           
-        
       - name: Check for merge conflicts 
         run: |
           git fetch --all
