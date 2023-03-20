@@ -48,8 +48,8 @@ jobs:
             exit 1
           fi
           
-          git checkout ${GITHUB_REF#refs/heads/}
-          git pull orgin ${GITHUB_REF#refs/heads/}
+          git checkout ${GITHUB_REF}
+          git pull orgin ${GITHUB_REF}
           
           if [ -n "$(git status --porcelain)" ]; then
             echo "merge conflict detected in release branch"
