@@ -14,6 +14,9 @@ jobs:
   merge:
     runs-on: ubuntu-latest
     steps:
+     - name: get the branch
+     run: |
+         echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
     - name: Merge release branch to default branch
       run: |
         git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
