@@ -1,29 +1,38 @@
 name: Automerge
+
 on:
  push:
      branches:
        - release/*
+
 env:
   MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/mydevopsgithub/merge
   MY_BRANCH: master
   MASTER_REPO: https://github.com/mydevopsgithub/merge
-#   MASTER_BRANCH: release/a.b.c
-  MASTER_BRANCH: release/*
+#   MASTER_BRANCH: github.ref 
+
 
 jobs:
   merge:
-    runs-on: ubuntu-latest
-    steps:
-    - name: get the branch
-      run: |
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v2
+   - name: get the branch
+     run: |
          echo "MASTER_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
-    - name: Merge release branch to default branch
-      run: |
-        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-        cd tmp
-        git config user.name "mydevopsgithub"
-        git config user.email "neelimamaddela95@gmail.com"
-        git config pull.rebase false
-        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-        git push
-        
+       
+   - name: Merge release branch to default branch
+     run: |
+       git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+       cd tmp
+       git config user.name "mydevopsgithub"
+       git config user.email "neelimamaddela95@gmail.com"
+       echo "1" 
+       git config pull.rebase false
+       echo "2"
+       git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+       echo "3"
+       git push
+ 
+
